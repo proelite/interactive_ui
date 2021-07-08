@@ -18,8 +18,10 @@ const useStyles = makeStyles((theme) => ({
 
 
 function UserItem({ user, onUserItemClick }) {
+  console.log(user, onUserItemClick);
+
   return (
-    <ListItem button onClick={onUserItemClick(user)}>
+    <ListItem button onClick={() => onUserItemClick(user)}>
       <ListItemIcon>
         <PersonIcon />
       </ListItemIcon>
@@ -27,13 +29,13 @@ function UserItem({ user, onUserItemClick }) {
     </ListItem>);
 }
 
-function FileItem({ user, onUserItemClick }) {
+function FileItem({ file, onFileItemClick }) {
   return (
-    <ListItem button onClick={onUserItemClick(user)}>
+    <ListItem button onClick={() => onFileItemClick(file)}>
       <ListItemIcon>
-        <PersonIcon />
+        <FileIcon />
       </ListItemIcon>
-      <ListItemText primary={user} />
+      <ListItemText primary={file} />
     </ListItem>);
 }
 
@@ -44,11 +46,14 @@ export default function SimpleList({ users, files, onUserItemClick, onFileItemCl
     <div className={classes.root}>
       <List component="nav" aria-label="Users">
       {
-          users.map((user) => UserItem(user, onUserItemClick))
+        users.map((user) => <UserItem user={user} onUserItemClick={onUserItemClick} />)
       }
       </List>
       <Divider />
       <List component="nav" aria-label="Files">
+      {
+        files.map((file) => <FileItem file={file} onFileItemClick={onFileItemClick} />)
+      }
       </List>
     </div>
   );

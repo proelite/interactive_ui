@@ -1,7 +1,12 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import SimpleList from './components/SimpleList';
+import Snackbar from '@material-ui/core/Snackbar';
 
 function App() {
+  const [{ open, message }, setSnackbar] = useState({
+    open: false, 
+  });
+
   const [users, setUsers] = useState([
     'A', 
     'B', 
@@ -16,16 +21,24 @@ function App() {
     '4',
   ]);
 
-  const onUserItemClick = useCallback((event) => {
-    console.log('event', event);
-  }, [users]);
+  const onUserItemClick = (user) => {
+    setSnackbar( { open: true, message: user });
+    setUsers([...users, user]);
+  };
 
-  const onFileItemClick = useCallback((event) => {
-    console.log('event', event);
-  }, [files]);
+  const onFileItemClick = (file) => {
+    setSnackbar( { open: true, message: file });
+    setFiles([...files, file]);
+  };
 
   return (
-    <SimpleList users={users} files={files} onUserItemClick={onUserItemClick} ononFileItemClick={onFileItemClick}  />
+    <div>
+    <Snackbar
+        open={open}
+        message={message}
+      />
+    <SimpleList users={users} files={files} onUserItemClick={onUserItemClick} onFileItemClick={onFileItemClick}  />
+    </div>
   );
 }
 
