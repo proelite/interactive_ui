@@ -1,10 +1,17 @@
-import './App.css';
-import stubComponent from './components/stubComponent';
-import demo from './components/demo';
+import SimpleList from './components/SimpleList';
 
 function App() {
+  
+  
+  const users = [
+    'A', 
+    'B', 
+    'C',
+    'D',
+  ]
+
   return (
-    <demo />
+    <SimpleList />
   );
 }
 
